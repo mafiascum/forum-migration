@@ -1,3 +1,9 @@
+CREATE TABLE `phpbb_config_text` (
+	`config_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+	`config_value` mediumtext COLLATE utf8_bin NOT NULL,
+	PRIMARY KEY (`config_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 DROP TABLE IF EXISTS `temp_post_approved`;
 
 CREATE TABLE `temp_post_approved`(
