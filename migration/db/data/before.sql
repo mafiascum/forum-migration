@@ -114,3 +114,22 @@ CREATE TABLE IF NOT EXISTS `phpbb_config_text` (
 `config_value` mediumtext COLLATE utf8_bin NOT NULL,
 PRIMARY KEY (`config_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+###
+#
+# Record users' current styles. We'll need this after the upgrade to set their theme.
+#
+###
+DROP TABLE IF EXISTS `temp_user_old_style`;
+
+CREATE TABLE `temp_user_old_style`(
+	`user_id` mediumint(8) unsigned not null,
+	`style_id` mediumint(8) unsigned not null,
+	PRIMARY KEY(`user_id`)
+) ENGINE=MyISAM;
+
+INSERT INTO `temp_user_old_style`
+SELECT `user_id`, `user_style`
+FROM `phpbb_users`;
