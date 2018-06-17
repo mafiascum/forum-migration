@@ -1,15 +1,20 @@
 ###
 #
-# Run single, consolidated alter against post table
+# This table is required, but the phpBB migration files are missing it.
 #
 ###
-
 CREATE TABLE `phpbb_config_text` (
 	`config_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
 	`config_value` mediumtext COLLATE utf8_bin NOT NULL,
 	PRIMARY KEY (`config_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+
+###
+#
+# Run single, consolidated alter against post table
+#
+###
 DROP TABLE IF EXISTS `temp_post_approved`;
 
 CREATE TABLE `temp_post_approved`(
@@ -97,25 +102,12 @@ INSERT INTO `phpbb_bbcodes` VALUES
 ###
 
 UPDATE phpbb_posts SET
-	post_text=REGEXP_REPLACE(post_text, "<!--(\\d+)-->", "SEEDSTART\1SEEDEND")
+	post_text=REGEXP_REPLACE(post_text, "<!--(\\d+)-->", "SEEDSTART\\1SEEDEND")
 WHERE LOCATE("<!--", post_text) != 0;
 
 UPDATE phpbb_privmsgs SET
-	message_text=REGEXP_REPLACE(message_text, "<!--(\\d+)-->", "SEEDSTART\1SEEDEND")
+	message_text=REGEXP_REPLACE(message_text, "<!--(\\d+)-->", "SEEDSTART\\1SEEDEND")
 WHERE LOCATE("<!--", message_text) != 0;
-
-###
-#
-# This table is required, but the phpBB migration files are missing it.
-#
-###
-CREATE TABLE IF NOT EXISTS `phpbb_config_text` (
-`config_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-`config_value` mediumtext COLLATE utf8_bin NOT NULL,
-PRIMARY KEY (`config_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-
 
 ###
 #
