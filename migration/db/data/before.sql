@@ -37,6 +37,7 @@ ADD `post_visibility` tinyint(3) NOT NULL DEFAULT '0',
 ADD `post_delete_time` int(11) unsigned NOT NULL DEFAULT '0',
 ADD `post_delete_reason` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
 ADD `post_delete_user` int(10) unsigned NOT NULL DEFAULT '0',
+ADD `sfs_reported` tinyint(1) unsigned NOT NULL DEFAULT 0,
 ADD KEY `post_visibility` (`post_visibility`),
 CHANGE `post_id` `post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 CHANGE `poster_id` `poster_id` int(10) unsigned NOT NULL DEFAULT '0',
@@ -94,7 +95,6 @@ INSERT INTO `phpbb_bbcodes` VALUES
 (1451,'dice','',1,'[dice]{TEXT}[/dice]','<span class=\"dice-tag-original\">{TEXT}</span>','!\\[dice\\](.*?)\\[/dice\\]!ies','\'[dice:$uid]\'.str_replace(array(\"\\r\\n\", \'\\\"\', \'\\\'\', \'(\', \')\'), array(\"\\n\", \'\"\', \'&#39;\', \'&#40;\', \'&#41;\'), trim(\'${1}\')).\'[/dice:$uid]\'','!\\[dice:$uid\\](.*?)\\[/dice:$uid\\]!s','<span class=\"dice-tag-original\">${1}</span>'),
 (1452,'post=','',1,'[post=#{NUMBER}]{TEXT2}[/post]','<a class=\"postlink post_tag\" href=\"{SERVER_PROTOCOL}{SERVER_NAME}{SCRIPT_PATH}viewtopic.php?p={NUMBER}#p{NUMBER}\">{TEXT2}</a>','!\\[post\\=#([0-9]+)\\](.*?)\\[/post\\]!ies','\'[post=#${1}:$uid]\'.str_replace(array(\"\\r\\n\", \'\\\"\', \'\\\'\', \'(\', \')\'), array(\"\\n\", \'\"\', \'&#39;\', \'&#40;\', \'&#41;\'), trim(\'${2}\')).\'[/post:$uid]\'','!\\[post\\=#([0-9]+):$uid\\](.*?)\\[/post:$uid\\]!s','<a class=\"postlink post_tag\" href=\"{SERVER_PROTOCOL}{SERVER_NAME}{SCRIPT_PATH}viewtopic.php?p=${1}#p${1}\">${2}</a>');
 
-
 ###
 #
 # Convert dice seed to new format
@@ -125,3 +125,5 @@ CREATE TABLE `temp_user_old_style`(
 INSERT INTO `temp_user_old_style`
 SELECT `user_id`, `user_style`
 FROM `phpbb_users`;
+
+ALTER TABLE `phpbb_users` change `user_old_emails` `user_old_emails` TEXT NULL DEFAULT NULL;
