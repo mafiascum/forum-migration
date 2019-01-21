@@ -71,6 +71,7 @@ php bin/phpbbcli.php db:migrate --safe-mode
 
 mv /var/www/html/mafiascum/forum /var/www/html/mafiascum/forum-3.0.9
 mv /root/phpBB3 /var/www/html/mafiascum/forum
+mv /var/www/html/mafiascum/forum-3.0.9/pgn4web /var/www/html/mafiascum/forum/
 rm -rf /var/www/html/mafiascum/forum/install/
 chown -R www-data:www-data /var/www/html/mafiascum/forum
 
