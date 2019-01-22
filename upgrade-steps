@@ -114,6 +114,7 @@ mysql -uroot -p ms_phpbb3 < ./migration/db/data/after.sql
 # 1) Enable all extensions
 # 2) Go to SYSTEM -> Administration Control Panel & DISABLE the module for "ACP_FAQ_MANAGER"
 # 3) Go to ETENSIONS -> Search by PMs: click "Create index" button
+# 4) Run after_extensions.sql
 
 ## Fix the migration file for stopforumspam
 cd /var/www/html/mafiascum/forum/ext
